@@ -23,7 +23,7 @@ SOURCES += $(SOURCES_DIR)/system_stm32f10x.c
 SOURCES += $(STD_PERIPH_LIBS)/Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_rcc.c
 # SOURCES += $(STD_PERIPH_LIBS)/Libraries/STM32F10x_StdPeriph_Driver/src/*.c
 SOURCES += $(STD_PERIPH_LIBS)/Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_gpio.c
-SOURCES += $(STARTUP_DIR)/startup_stm32f10x_md.s
+SOURCES += $(STARTUP_DIR)/startup_stm32f10x_hd.s
 SOURCES += $(STD_PERIPH_LIBS)/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c
 
 INCLUDES  = -I$(INCLUDE_DIR)
@@ -35,7 +35,7 @@ INCLUDES += -I/opt/gcc-arm-none-eabi/arm-none-eabi/include
 CFLAGS  = -g -Wall --specs=nosys.specs -march=armv7-m -O0
 CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m3 # -mthumb-interwork
 CFLAGS += -mfloat-abi=soft # -mfpu=fpv4-sp-d16 
-CFLAGS += -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER
+CFLAGS += -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER
 CFLAGS += -Wl,--gc-sections $(INCLUDES) 
 # CFLAGS += $(LIBS)
 
