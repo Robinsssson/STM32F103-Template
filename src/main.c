@@ -34,9 +34,9 @@
 #ifdef __GNUC__
 /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
    set to 'Yes') calls __io_putchar() */
-#define PUTCHAR_PROTOTYPE int _write(int fd, char* pBuffer, int size)
+#    define PUTCHAR_PROTOTYPE int _write(int fd, char* pBuffer, int size)
 #else
-#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE* f)
+#    define PUTCHAR_PROTOTYPE int fputc(int ch, FILE* f)
 #endif /* __GNUC__ */
 
 /* Private functions ---------------------------------------------------------*/
@@ -63,8 +63,8 @@ int main(void)
     GPIO_InitTypeDef GPIO_InitStructure;
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE);
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
+    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_Out_PP;
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_5;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     Delay(500);
     GPIO_Init(GPIOB, &GPIO_InitStructure);
@@ -122,7 +122,7 @@ PUTCHAR_PROTOTYPE
         for (int i = 0; i < size; i++) {
             while ((USART1->SR & 0X40) == 0)
                 ;
-            USART1->DR = (uint8_t)pBuffer[i];
+            USART1->DR = (uint8_t) pBuffer[i];
         }
         return size;
     }
@@ -141,8 +141,8 @@ PUTCHAR_PROTOTYPE
 void assert_failed(uint8_t* file, uint32_t line)
 {
     /* User can add his own implementation to report the file name and line
-       number, ex: printf("Wrong parameters value: file %s on line %d\r\n", file,
-       line) */
+       number, ex: printf("Wrong parameters value: file %s on line %d\r\n",
+       file, line) */
 
     /* Infinite loop */
     while (1) {
