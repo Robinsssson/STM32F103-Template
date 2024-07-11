@@ -25,7 +25,7 @@ target("template")
     add_files("src/*.c")
     add_files("./STM32F10x_StdPeriph_Lib_V3.6.0/Libraries/STM32F10x_StdPeriph_Driver/src/*.c")
     add_files("startup/startup_stm32f10x_hd.s")
-    add_files("./STM32F10x_StdPeriph_Lib_V3.6.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c")
+    -- add_files("./STM32F10x_StdPeriph_Lib_V3.6.0/Libraries/CMSIS/CM3/CoreSupport/core_cm3.c")
 
     -- 添加包含目录
     add_includedirs("include")
@@ -57,18 +57,23 @@ target("template")
         os.exec("arm-none-eabi-size -Ax ".. target:targetfile())
         os.exec("arm-none-eabi-size -Bx ".. target:targetfile())
         os.exec("arm-none-eabi-size -Bd ".. target:targetfile())
-
-        os.exec("/opt/openocd/bin/openocd -f /opt/openocd/openocd/scripts/interface/stlink.cfg \
-            -f /opt/openocd/openocd/scripts/target/stm32f1x.cfg \
-            -c 'program " .. path.join(target:targetdir(), target:name() .. ".bin") .. " verify reset exit 0x08000000'")
     end)
 
--- -- 定义任务
--- task("flash")
---     -- 定义任务执行函数
---     on_run(function ()
---         -- 执行烧写命令
---         os.exec("/opt/openocd/bin/openocd -f /opt/openocd/openocd/scripts/interface/stlink.cfg \
---             -f /opt/openocd/openocd/scripts/target/stm32f1x.cfg \
---             -c 'program ".. path.join(os.projectdir(), "template.bin").. " verify reset exit 0x08000000'")
---     end)
+-- 定义任务
+
+task("flash")
+    -- 定义任务执行函数
+    on_run(function ()
+        -- 执行烧写命令
+        os.exec("/opt/openocd/bin/openocd -f /opt/openocd/openocd/scripts/interface/stlink.cfg \
+            -f /opt/openocd/openocd/scripts/target/stm32f1x.cfg \
+            -c 'program ".."build/cross/armv7-m/release/template.bin".. " verify reset exit 0x08000000'")
+    end)
+
+    set_menu {
+        usage = "xmake flash [options]",
+        description = "flash elf to MCU",
+        options = {
+            {}
+        }
+    }

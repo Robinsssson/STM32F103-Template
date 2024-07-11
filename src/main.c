@@ -58,7 +58,6 @@ int main(void)
          To reconfigure the default setting of SystemInit() function, refer to
          system_stm32f10x.c file
        */
-    SystemInit();
     System_Config();
     GPIO_InitTypeDef GPIO_InitStructure;
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
